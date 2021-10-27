@@ -42,9 +42,31 @@ const removeStudent = (req, res) => {
   });
 };
 
+const updateStudent = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name } = req.body;
+
+  pool.query("SELECT * FROM students WHERE id =$1", [id], (err, result) => {
+    if (!result.rows.length) {
+      res.send("Student does not exist");
+    }
+
+    pool.query(
+      "UPDATE students SET name = $1 WHERE id = $2",
+      [name, id],
+      (err,
+      (result) => {
+        if (err) throw err;
+        res.status(200).send("student updated");
+      })
+    );
+  });
+};
+
 module.exports = {
   getStudents,
   getStudentById,
   addStudent,
   removeStudent,
+  updateStudent,
 };
