@@ -97,10 +97,24 @@ const removeProject = (req, res) => {
     });
 };
 
+const removeAllProjects = (req, res) => {
+  Projects.destroy({
+    where: {},
+    truncate: false,
+  })
+    .then((data) => {
+      res.send("All Projects removed successfully");
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 module.exports = {
   getProjects,
   getProjectById,
   addProject,
   updateProject,
   removeProject,
+  removeAllProjects,
 };
