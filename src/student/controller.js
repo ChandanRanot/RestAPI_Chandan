@@ -43,6 +43,35 @@ const addStudent = (req, res) => {
     });
 };
 
+const updateStudent = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name } = req.body;
+  Students.findAll({
+    where: { id: id },
+  })
+    .then((data) => {
+      if (!data.length) {
+        res.send("Student does not exist");
+      } else {
+        Students.update(
+          { name: name },
+          {
+            where: { id: id },
+          }
+        )
+          .then((data) => {
+            res.send("Student Updated");
+          })
+          .catch((err) => {
+            res.status(500).send(err);
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 // const updateStudent = (req, res) => {
 //   const id = parseInt(req.params.id);
 //   const { name } = req.body;
@@ -90,7 +119,7 @@ module.exports = {
   getStudents,
   getStudentById,
   addStudent,
+  updateStudent,
   // removeStudent,
-  // updateStudent,
   // removeAllStudents,
 };
