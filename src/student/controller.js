@@ -11,13 +11,24 @@ const getStudents = (req, res) => {
     });
 };
 
-// const getStudentById = (req, res) => {
-//   const id = parseInt(req.params.id);
-//   pool.query("SELECT * FROM students WHERE id =$1", [id], (err, result) => {
-//     if (err) throw err;
-//     res.status(200).json(result.rows);
-//   });
-// };
+const getStudentById = (req, res) => {
+  const id = parseInt(req.params.id);
+  Students.findAll({
+    where: {
+      id: id,
+    },
+  })
+    .then((data) => {
+      if (data.length) {
+        res.send(data);
+      } else {
+        res.status(404).send("No student found with given id");
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
 
 // const addStudent = (req, res) => {
 //   const { name, email, age, dob } = req.body;
@@ -76,7 +87,7 @@ const getStudents = (req, res) => {
 
 module.exports = {
   getStudents,
-  // getStudentById,
+  getStudentById,
   // addStudent,
   // removeStudent,
   // updateStudent,
