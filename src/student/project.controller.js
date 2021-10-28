@@ -42,8 +42,38 @@ const addProject = (req, res) => {
     });
 };
 
+const updateProject = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name } = req.body;
+  Projects.findAll({
+    where: { id: id },
+  })
+    .then((data) => {
+      if (!data.length) {
+        res.send("Project does not exist");
+      } else {
+        Projects.update(
+          { name: name },
+          {
+            where: { id: id },
+          }
+        )
+          .then((data) => {
+            res.send("Project Updated");
+          })
+          .catch((err) => {
+            res.status(500).send(err);
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 module.exports = {
   getProjects,
   getProjectById,
   addProject,
+  updateProject,
 };

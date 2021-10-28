@@ -9,7 +9,7 @@ router.get("/:id", projController.getProjectById);
 
 router.post("/", projController.addProject);
 
-// router.put("/:id", controller.updateStudent);
+router.put("/:id", projController.updateProject);
 
 // router.delete("/:id", controller.removeStudent);
 
