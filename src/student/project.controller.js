@@ -30,7 +30,20 @@ const getProjectById = (req, res) => {
     });
 };
 
+const addProject = (req, res) => {
+  const { name } = req.body;
+
+  Projects.create({ name: name })
+    .then((data) => {
+      res.send("Project Added");
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 module.exports = {
   getProjects,
   getProjectById,
+  addProject,
 };

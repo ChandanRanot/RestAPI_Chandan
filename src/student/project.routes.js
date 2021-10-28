@@ -7,7 +7,7 @@ router.get("/", projController.getProjects);
 
 router.get("/:id", projController.getProjectById);
 
-// router.post("/", controller.addStudent);
+router.post("/", projController.addProject);
 
 // router.put("/:id", controller.updateStudent);
 
