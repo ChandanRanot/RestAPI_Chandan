@@ -13,6 +13,6 @@ router.put("/:id", controller.updateStudent);
 
 router.delete("/:id", controller.removeStudent);
 
-// router.delete("/", controller.removeAllStudents);
+router.delete("/", controller.removeAllStudents);
 
 module.exports = router;

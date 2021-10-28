@@ -98,27 +98,18 @@ const removeStudent = (req, res) => {
     });
 };
 
-// const removeStudent = (req, res) => {
-//   const id = parseInt(req.params.id);
-
-//   pool.query("SELECT * FROM students WHERE id =$1", [id], (err, result) => {
-//     if (!result.rows.length) {
-//       res.send("Student does not exist");
-//     }
-
-//     pool.query("DELETE FROM students WHERE id = $1", [id], (err, result) => {
-//       if (err) throw err;
-//       res.status(200).send("Student Removed");
-//     });
-//   });
-// };
-
-// const removeAllStudents = (req, res) => {
-//   pool.query("DELETE FROM students", (err, result) => {
-//     if (err) throw err;
-//     res.status(200).send("All students removed");
-//   });
-// };
+const removeAllStudents = (req, res) => {
+  Students.destroy({
+    where: {},
+    truncate: false,
+  })
+    .then((data) => {
+      res.send("All Students removed successfully");
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
 
 module.exports = {
   getStudents,
@@ -126,5 +117,5 @@ module.exports = {
   addStudent,
   updateStudent,
   removeStudent,
-  // removeAllStudents,
+  removeAllStudents,
 };
