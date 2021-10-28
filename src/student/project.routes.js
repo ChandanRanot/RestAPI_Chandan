@@ -11,7 +11,7 @@ router.post("/", projController.addProject);
 
 router.put("/:id", projController.updateProject);
 
-// router.delete("/:id", controller.removeStudent);
+router.delete("/:id", projController.removeProject);
 
 // router.delete("/", controller.removeAllStudents);
 

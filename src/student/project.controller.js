@@ -71,9 +71,36 @@ const updateProject = (req, res) => {
     });
 };
 
+const removeProject = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  Projects.findAll({
+    where: { id: id },
+  })
+    .then((data) => {
+      if (!data.length) {
+        res.send("Project does not exist");
+      } else {
+        Projects.destroy({
+          where: { id: id },
+        })
+          .then((data) => {
+            res.send("Project Removed");
+          })
+          .catch((err) => {
+            res.status(500).send(err);
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 module.exports = {
   getProjects,
   getProjectById,
   addProject,
   updateProject,
+  removeProject,
 };
