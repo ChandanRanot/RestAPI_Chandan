@@ -5,14 +5,14 @@ const router = Router();
 
 router.get("/", controller.getStudents);
 
-router.get("/:id", controller.getStudentById);
+// router.get("/:id", controller.getStudentById);
 
-router.post("/", controller.addStudent);
+// router.post("/", controller.addStudent);
 
-router.put("/:id", controller.updateStudent);
+// router.put("/:id", controller.updateStudent);
 
-router.delete("/:id", controller.removeStudent);
+// router.delete("/:id", controller.removeStudent);
 
-router.delete("/", controller.removeAllStudents);
+// router.delete("/", controller.removeAllStudents);
 
 module.exports = router;

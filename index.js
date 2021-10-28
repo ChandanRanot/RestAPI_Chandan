@@ -12,4 +12,7 @@ app.get("/", (req, res) => {
 
 app.use("/students", studentRoutes);
 
+const db = require("./src/models/main");
+db.sequelize.sync();
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
