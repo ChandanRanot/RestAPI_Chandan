@@ -7,7 +7,7 @@ const getStudents = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
-      res.status(500).send(err.message);
+      res.status(500).send(err);
     });
 };
 
@@ -30,17 +30,18 @@ const getStudentById = (req, res) => {
     });
 };
 
-// const addStudent = (req, res) => {
-//   const { name, email, age, dob } = req.body;
-//   pool.query(
-//     "INSERT INTO students (name,email,age,dob) VALUES ($1,$2,$3,$4)",
-//     [name, email, age, dob],
-//     (err, result) => {
-//       if (err) throw err;
-//       res.status(201).send("Student added successfully");
-//     }
-//   );
-// };
+const addStudent = (req, res) => {
+  const { name, email, age, dob } = req.body;
+  const student = { name: name, email: email, age: age, dob: dob };
+
+  Students.create(student)
+    .then((data) => {
+      res.send("Student Added");
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
 
 // const updateStudent = (req, res) => {
 //   const id = parseInt(req.params.id);
@@ -88,7 +89,7 @@ const getStudentById = (req, res) => {
 module.exports = {
   getStudents,
   getStudentById,
-  // addStudent,
+  addStudent,
   // removeStudent,
   // updateStudent,
   // removeAllStudents,
