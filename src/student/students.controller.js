@@ -1,14 +1,10 @@
 const db = require("../models/main");
 const Students = db.students;
-const Project = db.project;
+const Project = db.projects;
 
 const getStudents = (req, res) => {
   Students.findAll({
-    include: [
-      {
-        model: Project,
-      },
-    ],
+    include: ["project"],
   })
     .then((data) => {
       res.send(data);
@@ -24,11 +20,7 @@ const getStudentById = (req, res) => {
     where: {
       id: id,
     },
-    include: [
-      {
-        model: Project,
-      },
-    ],
+    include: ["project"],
   })
     .then((data) => {
       if (data.length) {
@@ -43,12 +35,18 @@ const getStudentById = (req, res) => {
 };
 
 const addStudent = (req, res) => {
-  const { name, email, age, dob } = req.body;
-  const student = { name: name, email: email, age: age, dob: dob };
+  const { name, email, age, dob, projectId } = req.body;
+  const student = {
+    name: name,
+    email: email,
+    age: age,
+    dob: dob,
+    projectId: projectId,
+  };
 
   Students.create(student)
-    .then((data) => {
-      res.send("Student Added");
+    .then((student) => {
+      res.send(student);
     })
     .catch((err) => {
       res.status(500).send(err);

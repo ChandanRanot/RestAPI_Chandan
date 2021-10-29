@@ -1,17 +1,13 @@
 const db = require("../models/main");
 const Students = db.students;
-const Projects = db.project;
+const Projects = db.projects;
 
 const getProjects = (req, res) => {
   Projects.findAll({
-    include: [
-      {
-        model: Students,
-      },
-    ],
+    include: ["students"],
   })
-    .then((data) => {
-      res.send(data);
+    .then((students) => {
+      res.send(students);
     })
     .catch((err) => {
       res.status(500).send(err);
@@ -24,15 +20,11 @@ const getProjectById = (req, res) => {
     where: {
       id: id,
     },
-    include: [
-      {
-        model: Students,
-      },
-    ],
+    include: ["students"],
   })
-    .then((data) => {
-      if (data.length) {
-        res.send(data);
+    .then((student) => {
+      if (student.length) {
+        res.send(student);
       } else {
         res.status(404).send("No project found with given id");
       }
@@ -46,8 +38,8 @@ const addProject = (req, res) => {
   const { name } = req.body;
 
   Projects.create({ name: name })
-    .then((data) => {
-      res.send("Project Added");
+    .then((project) => {
+      res.send(project);
     })
     .catch((err) => {
       res.status(500).send(err);
