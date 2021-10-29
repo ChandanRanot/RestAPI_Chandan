@@ -1,8 +1,15 @@
 const db = require("../models/main");
 const Students = db.students;
+const Project = db.project;
 
 const getStudents = (req, res) => {
-  Students.findAll()
+  Students.findAll({
+    include: [
+      {
+        model: Project,
+      },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -17,6 +24,11 @@ const getStudentById = (req, res) => {
     where: {
       id: id,
     },
+    include: [
+      {
+        model: Project,
+      },
+    ],
   })
     .then((data) => {
       if (data.length) {
